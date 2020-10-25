@@ -1,0 +1,10 @@
+project.zip
+.vscode/launch.json
+__pycache__/Paddle.cpython-38.pyc
+__pycache__/HelperFunction.cpython-38.pyc
+__pycache__/ball.cpython-38.pyc
+images/egg.png
+Media/Background_music.mp3
+Media/bgmusic.wav
+Media/boop.wav
+Media/Tacobell.wav
