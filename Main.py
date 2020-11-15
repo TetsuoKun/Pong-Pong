@@ -14,7 +14,9 @@ BLACK = (0,0,0)
 WHITE = (255,255,255)
 YELLOW = (252,186,3)
 PURPLE = (111,4,194)
+BURPLE = (251,5,255)
 GRUE = (4,194,130)
+BGRUE = (5,255,172)
 
 MOVE_SPEED = 10
 WIDTH = 700
@@ -42,8 +44,21 @@ def main_menu():
         TextRect.center = ((WIDTH/2),(HEIGHT/2))
         screen.blit(TextSurf, TextRect)
 
-        pygame.draw.rect(screen, GRUE,(100,400,100,50))
-        pygame.draw.rect(screen, PURPLE,(500,400,100,50))
+        mouse = pygame.mouse.get_pos()
+
+        print(mouse)
+
+        if 100+100 > mouse[0] > 100 and 400+50 > mouse[1] > 400:
+            pygame.draw.rect(screen, BGRUE,(100,400,100,50))
+        else:
+            pygame.draw.rect(screen, GRUE,(100,400,100,50))
+        
+        if 500+100 > mouse[0] > 500 and 400+50 > mouse[1] > 400:
+            pygame.draw.rect(screen, BURPLE,(500,400,100,50))
+        else:
+            pygame.draw.rect(screen, PURPLE,(500,400,100,50))
+        
+      
 
         pygame.display.update()
         clock.tick(15) 
