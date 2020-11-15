@@ -31,6 +31,12 @@ def text_objects(text, font):
     textSurface = font.render(text, True, BLACK)
     return textSurface, textSurface.get_rect()
 
+def draw_text(word, x, y, font, size):
+    Text = pygame.font.Font(font, size)
+    textSurf, textRect = text_objects(word, Text)
+    textRect.center = (x,y)
+    screen.blit(textSurf, textRect)
+
 def main_menu():
     intro = True
     while intro:
@@ -39,14 +45,11 @@ def main_menu():
                 intro = False
 
         screen.fill(WHITE)
-        largeText = pygame.font.Font("freesansbold.ttf",115) 
-        TextSurf, TextRect = text_objects("Pong Pong", largeText)
-        TextRect.center = ((WIDTH/2),(HEIGHT/3))
-        screen.blit(TextSurf, TextRect)
+        draw_text("Pong Pong", (WIDTH/2), (HEIGHT/3), "freesansbold.ttf", 115)
 
         mouse = pygame.mouse.get_pos()
 
-        print(mouse)
+        #print(mouse)
 
         if 100+100 > mouse[0] > 100 and 400+50 > mouse[1] > 400:
             pygame.draw.rect(screen, BGRUE,(100,400,100,50))
@@ -57,20 +60,15 @@ def main_menu():
             pygame.draw.rect(screen, BURPLE,(500,400,100,50))
         else:
             pygame.draw.rect(screen, PURPLE,(500,400,100,50))
-        
-        smolText = pygame.font.Font("freesansbold.ttf", 25)
-        textSurf, textRect = text_objects("Start", smolText)
-        textRect.center = (150,425)
-        screen.blit(textSurf, textRect)
+ 
+        draw_text("Start", 150, 425, "freesansbold.ttf", 25)
 
-        smolText = pygame.font.Font("freesansbold.ttf", 25)
-        textSurf, textRect = text_objects("Quit", smolText)
-        textRect.center = (550,425)
-        screen.blit(textSurf, textRect)
-
+        draw_text("Quit", 550, 425, "freesansbold.ttf", 25)
 
         pygame.display.update()
         clock.tick(15) 
+
+
             
 
 def game_loop():
