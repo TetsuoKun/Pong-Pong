@@ -41,7 +41,7 @@ def main_menu():
         screen.fill(WHITE)
         largeText = pygame.font.Font("freesansbold.ttf",115) 
         TextSurf, TextRect = text_objects("Pong Pong", largeText)
-        TextRect.center = ((WIDTH/2),(HEIGHT/2))
+        TextRect.center = ((WIDTH/2),(HEIGHT/3))
         screen.blit(TextSurf, TextRect)
 
         mouse = pygame.mouse.get_pos()
@@ -58,7 +58,16 @@ def main_menu():
         else:
             pygame.draw.rect(screen, PURPLE,(500,400,100,50))
         
-      
+        smolText = pygame.font.Font("freesansbold.ttf", 25)
+        textSurf, textRect = text_objects("Start", smolText)
+        textRect.center = (150,425)
+        screen.blit(textSurf, textRect)
+
+        smolText = pygame.font.Font("freesansbold.ttf", 25)
+        textSurf, textRect = text_objects("Quit", smolText)
+        textRect.center = (550,425)
+        screen.blit(textSurf, textRect)
+
 
         pygame.display.update()
         clock.tick(15) 
