@@ -34,8 +34,20 @@ def text_objects(text, font):
 def draw_text(word, x, y, font, size):
     Text = pygame.font.Font(font, size)
     textSurf, textRect = text_objects(word, Text)
-    textRect.center = (x,y)
+    textRect.center = (int(x),int(y))
     screen.blit(textSurf, textRect)
+
+def button(message, x, y, width, height, inactive_color, active_color, font, size, action = None):
+    mouse = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()
+    if x + width > mouse[0] > x and y + height  > mouse[1] > y:
+        pygame.draw.rect(screen, active_color,( x, y , width, height))
+        if click[0] == 1 and action != None:
+            action()
+    else:
+        pygame.draw.rect(screen, inactive_color,(x, y, width, height))
+    draw_text(message, (x+(width/2)), (y+(height/2)), font, size)
+
 
 def main_menu():
     intro = True
@@ -45,31 +57,14 @@ def main_menu():
                 intro = False
 
         screen.fill(WHITE)
+
         draw_text("Pong Pong", (WIDTH/2), (HEIGHT/3), "freesansbold.ttf", 115)
 
-        mouse = pygame.mouse.get_pos()
-
-        #print(mouse)
-
-        if 100+100 > mouse[0] > 100 and 400+50 > mouse[1] > 400:
-            pygame.draw.rect(screen, BGRUE,(100,400,100,50))
-        else:
-            pygame.draw.rect(screen, GRUE,(100,400,100,50))
-        
-        if 500+100 > mouse[0] > 500 and 400+50 > mouse[1] > 400:
-            pygame.draw.rect(screen, BURPLE,(500,400,100,50))
-        else:
-            pygame.draw.rect(screen, PURPLE,(500,400,100,50))
- 
-        draw_text("Start", 150, 425, "freesansbold.ttf", 25)
-
-        draw_text("Quit", 550, 425, "freesansbold.ttf", 25)
+        button("Start", 100, 400, 100, 50, GRUE, BGRUE, "freesansbold.ttf", 25, game_loop)
+        button("Quit", 500, 400, 100, 50, PURPLE, BURPLE, "freesansbold.ttf", 25, quit)
 
         pygame.display.update()
         clock.tick(15) 
-
-
-            
 
 def game_loop():
     paddleA = Paddle(WHITE, 10, 100)
@@ -157,7 +152,6 @@ def game_loop():
         clock.tick(30)
 
 main_menu()
-game_loop()
 
 pygame.quit()
 
