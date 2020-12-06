@@ -1,5 +1,5 @@
 import pygame
-#colors
+#colors70
 BLACK = (0,0,0)
 WHITE = (255,255,255)
 YELLOW = (252,186,3)

@@ -7,7 +7,8 @@ import constants
 # pygame.mixer.music.load('Media/bgmusic.wav')
 # pygame.mixer.music.play(-1)
 
-game_background = pygame.image.load("Media/images/egg.png")
+game_background = pygame.image.load("Media/images/poached.png")
+MMB = pygame.image.load("Media/images/boiledegg.png")
 
 pygame.init()
 
@@ -22,6 +23,7 @@ def main_menu():
                 intro = False
 
         constants.screen.fill(constants.WHITE)
+        constants.screen.blit(MMB, (0,0))
 
         HelperFunction.draw_text("Pong Pong", (constants.WIDTH/2), (constants.HEIGHT/3), "freesansbold.ttf", 115)
 
@@ -32,15 +34,15 @@ def main_menu():
         clock.tick(15) 
 
 def game_loop():
-    paddleA = Paddle(constants.WHITE, 10, 100)
+    paddleA = Paddle(constants.BLACK, 10, 100)
     paddleA.rect.x = 20 
     paddleA.rect.y = 200 
 
-    paddleB = Paddle(constants.WHITE, 10, 100)
+    paddleB = Paddle(constants.BLACK, 10, 100)
     paddleB.rect.x = 670 
     paddleB.rect.y = 200 
 
-    ball = Ball(constants.WHITE,10,10)
+    ball = Ball(constants.BLACK,10,10)
     ball.rect.x = 345
     ball.rect.y = 195
 
@@ -102,14 +104,14 @@ def game_loop():
 
         constants.screen.blit(game_background, (0,0))
 
-        pygame.draw.line(constants.screen, constants.WHITE, [349, 0], [349,500], 5)
+        pygame.draw.line(constants.screen, constants.BLACK, [349, 0], [349,500], 5)
 
         all_sprites_list.draw(constants.screen)
 
         font = pygame.font.Font(None, 74)
-        text = font.render(str(scoreA), 1, constants.WHITE)
+        text = font.render(str(scoreA), 1, constants.BLACK)
         constants.screen.blit(text, (250,10))
-        text = font.render(str(scoreB), 1, constants.WHITE)
+        text = font.render(str(scoreB), 1, constants.BLACK)
         constants.screen.blit(text,(420,10))
 
         pygame.display.flip()

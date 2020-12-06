@@ -8,8 +8,8 @@ class Ball(pygame.sprite.Sprite):
         super().__init__()
 
         self.image = pygame.Surface([width,height])
-        self.image.fill(constants.BLACK)
-        self.image.set_colorkey(constants.BLACK)
+        self.image.fill(constants.WHITE)
+        self.image.set_colorkey(constants.WHITE)
 
         pygame.draw.rect(self.image, color, [0, 0, width, height])
 
