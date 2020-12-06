@@ -1,53 +1,18 @@
 import pygame
 from Paddle import Paddle 
 from ball import Ball 
-from HelperFunction import playSFX
+import HelperFunction
+import constants
 # pygame.mixer.init(frequency=44100, size=-16, channels=2, buffer=4096)
 # pygame.mixer.music.load('Media/bgmusic.wav')
 # pygame.mixer.music.play(-1)
 
-background = pygame.image.load("images/egg.png")
+game_background = pygame.image.load("Media/images/egg.png")
 
 pygame.init()
 
-BLACK = (0,0,0)
-WHITE = (255,255,255)
-YELLOW = (252,186,3)
-PURPLE = (111,4,194)
-BURPLE = (251,5,255)
-GRUE = (4,194,130)
-BGRUE = (5,255,172)
-
-MOVE_SPEED = 10
-WIDTH = 700
-HEIGHT = 500
-
-size = (WIDTH, HEIGHT)
-screen = pygame.display.set_mode(size)
 pygame.display.set_caption("Pong")
 clock = pygame.time.Clock()
-
-def text_objects(text, font):
-    textSurface = font.render(text, True, BLACK)
-    return textSurface, textSurface.get_rect()
-
-def draw_text(word, x, y, font, size):
-    Text = pygame.font.Font(font, size)
-    textSurf, textRect = text_objects(word, Text)
-    textRect.center = (int(x),int(y))
-    screen.blit(textSurf, textRect)
-
-def button(message, x, y, width, height, inactive_color, active_color, font, size, action = None):
-    mouse = pygame.mouse.get_pos()
-    click = pygame.mouse.get_pressed()
-    if x + width > mouse[0] > x and y + height  > mouse[1] > y:
-        pygame.draw.rect(screen, active_color,( x, y , width, height))
-        if click[0] == 1 and action != None:
-            action()
-    else:
-        pygame.draw.rect(screen, inactive_color,(x, y, width, height))
-    draw_text(message, (x+(width/2)), (y+(height/2)), font, size)
-
 
 def main_menu():
     intro = True
@@ -56,26 +21,26 @@ def main_menu():
             if event.type == pygame.QUIT:
                 intro = False
 
-        screen.fill(WHITE)
+        constants.screen.fill(constants.WHITE)
 
-        draw_text("Pong Pong", (WIDTH/2), (HEIGHT/3), "freesansbold.ttf", 115)
+        HelperFunction.draw_text("Pong Pong", (constants.WIDTH/2), (constants.HEIGHT/3), "freesansbold.ttf", 115)
 
-        button("Start", 100, 400, 100, 50, GRUE, BGRUE, "freesansbold.ttf", 25, game_loop)
-        button("Quit", 500, 400, 100, 50, PURPLE, BURPLE, "freesansbold.ttf", 25, quit)
+        HelperFunction.button("Start", 100, 400, 100, 50, constants.GRUE, constants.BGRUE, "freesansbold.ttf", 25, game_loop)
+        HelperFunction.button("Quit", 500, 400, 100, 50, constants.PURPLE, constants.BURPLE, "freesansbold.ttf", 25, quit)
 
         pygame.display.update()
         clock.tick(15) 
 
 def game_loop():
-    paddleA = Paddle(WHITE, 10, 100)
+    paddleA = Paddle(constants.WHITE, 10, 100)
     paddleA.rect.x = 20 
     paddleA.rect.y = 200 
 
-    paddleB = Paddle(WHITE, 10, 100)
+    paddleB = Paddle(constants.WHITE, 10, 100)
     paddleB.rect.x = 670 
     paddleB.rect.y = 200 
 
-    ball = Ball(WHITE,10,10)
+    ball = Ball(constants.WHITE,10,10)
     ball.rect.x = 345
     ball.rect.y = 195
 
@@ -105,24 +70,24 @@ def game_loop():
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_w]:
-            paddleA.moveUp(MOVE_SPEED)
+            paddleA.moveUp(constants.MOVE_SPEED)
         if keys[pygame.K_s]:
-            paddleA.moveDown(MOVE_SPEED)
+            paddleA.moveDown(constants.MOVE_SPEED)
         if keys[pygame.K_UP]:
-            paddleB.moveUp(MOVE_SPEED)
+            paddleB.moveUp(constants.MOVE_SPEED)
         if keys[pygame.K_DOWN]:
-            paddleB.moveDown(MOVE_SPEED)
+            paddleB.moveDown(constants.MOVE_SPEED)
 
         all_sprites_list.update()
 
         if ball.rect.x>=690:
             scoreA+=1
-            playSFX('Media/boop.wav')
+            HelperFunction.playSFX(constants.BOOP)
             ball.rect.x = 345
             ball.rect.y = 195
             ball.velocity[0] = -ball.velocity[0]
         if ball.rect.x<=0:
-            playSFX('Media/boop.wav')
+            HelperFunction.playSFX(constants.BOOP)
             scoreB+=1
             ball.rect.x = 345
             ball.rect.y = 195
@@ -135,17 +100,17 @@ def game_loop():
         if pygame.sprite.collide_mask(ball, paddleA) or pygame.sprite.collide_mask(ball, paddleB):
             ball.bounce()
 
-        screen.blit(background, (0,0))
+        constants.screen.blit(game_background, (0,0))
 
-        pygame.draw.line(screen, WHITE, [349, 0], [349,500], 5)
+        pygame.draw.line(constants.screen, constants.WHITE, [349, 0], [349,500], 5)
 
-        all_sprites_list.draw(screen)
+        all_sprites_list.draw(constants.screen)
 
         font = pygame.font.Font(None, 74)
-        text = font.render(str(scoreA), 1, WHITE)
-        screen.blit(text, (250,10))
-        text = font.render(str(scoreB), 1, WHITE)
-        screen.blit(text,(420,10))
+        text = font.render(str(scoreA), 1, constants.WHITE)
+        constants.screen.blit(text, (250,10))
+        text = font.render(str(scoreB), 1, constants.WHITE)
+        constants.screen.blit(text,(420,10))
 
         pygame.display.flip()
 

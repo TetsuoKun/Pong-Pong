@@ -1,16 +1,15 @@
 import pygame
 from random import randint 
-from HelperFunction import playSFX
-BLACK = (0,0,0)
-
+import HelperFunction
+import constants
 class Ball(pygame.sprite.Sprite):
     
     def __init__(self, color, width, height):
         super().__init__()
 
         self.image = pygame.Surface([width,height])
-        self.image.fill(BLACK)
-        self.image.set_colorkey(BLACK)
+        self.image.fill(constants.BLACK)
+        self.image.set_colorkey(constants.BLACK)
 
         pygame.draw.rect(self.image, color, [0, 0, width, height])
 
@@ -25,5 +24,5 @@ class Ball(pygame.sprite.Sprite):
     def bounce(self):
         self.velocity[0] = -self.velocity[0]
         self.velocity[1] = randint(-8,8)
-        playSFX('Media/Tacobell.wav')
+        HelperFunction.playSFX(constants.BELL)
       
