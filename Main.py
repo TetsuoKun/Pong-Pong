@@ -9,10 +9,12 @@ import constants
 
 game_background = pygame.image.load("Media/images/poached.png")
 MMB = pygame.image.load("Media/images/boiledegg.png")
+icon = pygame.image.load("Media/images/icon1.png")
 
 pygame.init()
 
 pygame.display.set_caption("Pong")
+pygame.display.set_icon(icon)
 clock = pygame.time.Clock()
 
 def main_menu():
