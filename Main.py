@@ -29,8 +29,11 @@ def main_menu():
 
         HelperFunction.draw_text("Pong Pong", (constants.WIDTH/2), (constants.HEIGHT/3), "freesansbold.ttf", 115)
 
-        HelperFunction.button("Start", 100, 400, 100, 50, constants.GRUE, constants.BGRUE, "freesansbold.ttf", 25, game_loop)
-        HelperFunction.button("Quit", 500, 400, 100, 50, constants.PURPLE, constants.BURPLE, "freesansbold.ttf", 25, quit)
+        play_button = HelperFunction.Button("Start", 100, 400, 100, 50, constants.GRUE, constants.BGRUE, "freesansbold.ttf", 25, game_loop)
+        exit_button = HelperFunction.Button("Quit", 500, 400, 100, 50, constants.PURPLE, constants.BURPLE, "freesansbold.ttf", 25, quit)
+        
+        play_button.render_button()
+        exit_button.render_button()
 
         pygame.display.update()
         clock.tick(15) 
