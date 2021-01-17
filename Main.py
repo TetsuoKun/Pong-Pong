@@ -3,13 +3,14 @@ from Paddle import Paddle
 from ball import Ball 
 import HelperFunction
 import constants
-# pygame.mixer.init(frequency=44100, size=-16, channels=2, buffer=4096)
-# pygame.mixer.music.load('Media/bgmusic.wav')
-# pygame.mixer.music.play(-1)
+pygame.mixer.init(frequency=44100, size=-16, channels=2, buffer=4096)
+pygame.mixer.music.load(constants.BG_MUSIC)
+pygame.mixer.music.play(-1)
+pygame.mixer.music.set_volume(constants.BG_MUSIC_VOLUME)
 
-game_background = pygame.image.load("Media/images/poached.png")
-MMB = pygame.image.load("Media/images/boiledegg.png")
-icon = pygame.image.load("Media/images/icon1.png")
+game_background = pygame.image.load(constants.BG_GAME_IMAGE)
+MMB = pygame.image.load(constants.MAIN_MENU)
+icon = pygame.image.load(constants.ICON)
 
 pygame.init()
 
@@ -19,6 +20,9 @@ clock = pygame.time.Clock()
 
 def main_menu():
     intro = True
+    play_button = HelperFunction.Button("Start", 100, 400, 100, 50, constants.GRUE, constants.BGRUE, "freesansbold.ttf", 25, game_loop)
+    exit_button = HelperFunction.Button("Quit", 500, 400, 100, 50, constants.PURPLE, constants.BURPLE, "freesansbold.ttf", 25, quit)
+
     while intro:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -29,8 +33,6 @@ def main_menu():
 
         HelperFunction.draw_text("Pong Pong", (constants.WIDTH/2), (constants.HEIGHT/3), "freesansbold.ttf", 115)
 
-        play_button = HelperFunction.Button("Start", 100, 400, 100, 50, constants.GRUE, constants.BGRUE, "freesansbold.ttf", 25, game_loop)
-        exit_button = HelperFunction.Button("Quit", 500, 400, 100, 50, constants.PURPLE, constants.BURPLE, "freesansbold.ttf", 25, quit)
         
         play_button.render_button()
         exit_button.render_button()

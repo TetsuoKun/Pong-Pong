@@ -24,5 +24,5 @@ class Ball(pygame.sprite.Sprite):
     def bounce(self):
         self.velocity[0] = -self.velocity[0]
         self.velocity[1] = randint(-8,8)
-        HelperFunction.playSFX(constants.BELL)
+        HelperFunction.playSFX(constants.BELL, volume=constants.PADDLE_HIT_SOUND)
       
