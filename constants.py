@@ -7,6 +7,7 @@ PURPLE = (111,4,194)
 BURPLE = (251,5,255)
 GRUE = (4,194,130)
 BGRUE = (5,255,172)
+GREY = (200, 200, 200)
 
 #sounds
 BOOP = 'Media/sounds/boop.wav'
@@ -31,5 +32,3 @@ CLICK_SOUND_VOLUNE = .1
 #variables
 size = (WIDTH, HEIGHT)
 screen = pygame.display.set_mode(size)
-
-#TODO: clean up dependencies

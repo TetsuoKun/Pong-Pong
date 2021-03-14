@@ -18,15 +18,19 @@ pygame.display.set_caption("Pong")
 pygame.display.set_icon(icon)
 clock = pygame.time.Clock()
 
+#TODO: Consider exiting the funciton loop instead of calling a new funciton for each sscene button to keep the stack from filling up.  
+
 def main_menu():
+    print ("Running Main Menu")
     intro = True
-    play_button = HelperFunction.Button("Start", 100, 400, 100, 50, constants.GRUE, constants.BGRUE, "freesansbold.ttf", 25, game_loop)
-    exit_button = HelperFunction.Button("Quit", 500, 400, 100, 50, constants.PURPLE, constants.BURPLE, "freesansbold.ttf", 25, quit)
+    play_button = HelperFunction.Button("Start", 100, 400, width = 100, height = 50, inactive_color = constants.GRUE, hover_color = constants.BGRUE, active_color =  constants.WHITE, font = "freesansbold.ttf", size = 25, action  =  game_loop)
+    exit_button = HelperFunction.Button("Quit", 500, 400, width = 100, height = 50, inactive_color = constants.PURPLE, hover_color = constants.BURPLE, active_color = constants.WHITE, font =  "freesansbold.ttf", size = 25, action = quit)
+    settings_button = HelperFunction.Button("Settings", 615, 20, width = 50, height = 25, size = 10, hover_color = (125, 125, 125), active_color = constants.WHITE, action = settings)
 
     while intro:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                intro = False
+                quit()
 
         constants.screen.fill(constants.WHITE)
         constants.screen.blit(MMB, (0,0))
@@ -36,9 +40,32 @@ def main_menu():
         
         play_button.render_button()
         exit_button.render_button()
+        settings_button.render_button()
 
         pygame.display.update()
         clock.tick(15) 
+
+def settings():
+    #settings = open("Data/settings.txt", "r+")
+    #str = settings.read()
+    #print ("The file says", str)
+    menu_button = HelperFunction.Button("Main Menu", 30, 20, width = 50, height = 25, size = 9, hover_color = (125, 125, 125), active_color = constants.WHITE, action = main_menu)
+    settings_page = True
+    while settings_page == True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quit()
+
+        constants.screen.fill(constants.WHITE)
+        constants.screen.blit(MMB, (0,0))
+        
+        HelperFunction.draw_text("Settings", (constants.WIDTH/2), (constants.HEIGHT/9), "freesansbold.ttf", 50)
+        menu_button.render_button()
+
+        pygame.display.update()
+        clock.tick(15)
+    #settings.close()
+
 
 def game_loop():
     paddleA = Paddle(constants.BLACK, 10, 100)
@@ -126,6 +153,8 @@ def game_loop():
         clock.tick(30)
 
 main_menu()
+
+
 
 pygame.quit()
 
